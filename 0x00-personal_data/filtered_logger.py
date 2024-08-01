@@ -67,3 +67,23 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
             host=host,
             database=db_name
     )
+
+
+def main():
+    """Main function to connect to the database and log user data"""
+    logger = get_logger()
+    db = get_db()
+
+    try:
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM users")
+        rows = cursor.fetchall()
+
+        for row in rows:
+            # Create a log message from the row data
+            message = "; ".join(f"{k}={v}" for k, v in row.items())
+            logger.info(message)
+
+    finally:
+        cursor.close()
+        db.close()
