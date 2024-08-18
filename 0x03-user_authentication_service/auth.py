@@ -124,6 +124,7 @@ class Auth:
         except NoResultFound:
             raise ValueError(f"User {email} does not exist")
 
-        reset_token = _generate_uuid()
+        reset_token = str(uuid.uuid4())
         self._db.update_user_reset_token(user.id, reset_token)
+
         return reset_token
