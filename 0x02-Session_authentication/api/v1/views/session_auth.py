@@ -30,3 +30,11 @@ def login():
     response.set_cookie(key=request.environ.get('SESSION_NAME'), value=session_id)
 
     return response
+
+
+@session_auth.route('/logout', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """ Logout method """
+    if not auth.destroy_session(request):
+        abort(404)
+    return jsonify({}), 200
