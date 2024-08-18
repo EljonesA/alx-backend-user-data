@@ -6,7 +6,9 @@ from api.v1.auth.session_auth import SessionAuth
 
 
 class SessionExpAuth(SessionAuth):
+    """ Session class """
     def __init__(self):
+        """ instance method """
         super().__init__()
         import os
         try:
